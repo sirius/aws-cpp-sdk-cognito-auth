@@ -7,7 +7,7 @@
 #include <openssl/sha.h>
 #include <openssl/bio.h>
 
-#include "aws_user_authentication.h"
+#include "AWSUserAuthentication.h"
 
 static const std::string aws_secure_N = "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1" 
                                         "29024E088A67CC74020BBEA63B139B22514A08798E3404DD" 
