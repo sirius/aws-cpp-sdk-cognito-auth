@@ -260,7 +260,7 @@ AWSUserAuthentication::getPasswordAuthenticationKey(const Aws::String &salt,
     DigestMessage(userid_string, userid_digest);
     
     std::vector<unsigned char> salt_array;
-    ConvertHEXStringToCharVector(salt, salt_array);
+    ConvertHEXStringToCharVector(PadHexStringWithLeadingZero(salt), salt_array);
 
     std::vector<unsigned char> x_array(salt_array.size() + userid_digest.size());
     std::vector<unsigned char> x_digest;
