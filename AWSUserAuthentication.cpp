@@ -14,6 +14,9 @@
   */
 
 #include <chrono>
+#ifdef __STDC_LIB_EXT1__
+    #define __STDC_WANT_LIB_EXT1__ 1
+#endif
 #include <ctime>
 
 #include <openssl/hmac.h>
@@ -392,9 +395,19 @@ int AWSUserAuthentication::InitiateAuthentication()
             std::stringstream ss;
             
             struct tm timeinfo;
+#ifdef __STDC_LIB_EXT1__
             localtime_s(&timeinfo, &now_c); // using thread-safe localtime_s over localtime
             ss << std::put_time(&timeinfo, "%a %b %e %H:%M:%S UTC %Y");
+#else
+            ss << std::put_time(std::localtime(&now_c), "%a %b %e %H:%M:%S UTC %Y");
+#endif
             std::string time_str(ss.str());
+
+            // remove leading space from single day digits (%e)
+            std::size_t doubleSpacePos = time_str.find("  ");
+            if (doubleSpacePos != std::string::npos) {
+                time_str.erase(doubleSpacePos, 1);
+            }
 
             const Aws::String salt = challenge_map["SALT"];
             const Aws::String srp_b = challenge_map["SRP_B"];
