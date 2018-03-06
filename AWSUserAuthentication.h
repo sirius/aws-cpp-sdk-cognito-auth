@@ -60,7 +60,7 @@ public:
                                             const Aws::String &secret_block,
                                             const Aws::String &time_str);
 
-    void AWSUserAuthentication::getPasswordAuthenticationKey(const Aws::String &salt, const Aws::String &srp_b, std::vector<unsigned char> &key);
+    void getPasswordAuthenticationKey(const Aws::String &salt, const Aws::String &srp_b, std::vector<unsigned char> &key);
 
 private:
 
