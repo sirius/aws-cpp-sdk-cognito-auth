@@ -192,7 +192,11 @@ AWSUserAuthentication::AWSUserAuthentication(const std::string &username, const 
     bn_a_(BN_new()),
     bn_A_(BN_new())
 {
-
+    // Remove region if included in user_pool string
+    std::size_t pos = user_pool_.find_first_of("_");
+    if (pos != std::string::npos) {
+        user_pool_ = user_pool.substr(pos + 1);
+    }
 }
 
 
